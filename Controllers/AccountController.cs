@@ -2,28 +2,29 @@ namespace RawMaterials.GMP.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[ApiExplorerSettings(GroupName = "account")]
 public class AccountController(ILogger<AccountController> _logger) : ControllerBase
 {
-    [HttpPost("register")]
+    [HttpPost("Register")]
     public IActionResult Register(RegisterRequest model)
     {
         return Ok("User registered successfully.");
     }
 
-    [HttpPost("login")]
+    [HttpPost("Login")]
     public IActionResult Login(LoginRequest model)
     {
         return Ok();
     }
 
-    [HttpPost("logout")]
+    [HttpPost("Logout")]
     [Authorize]
     public IActionResult Logout()
     {
         return Ok("Logged out successfully.");
     }
 
-    [HttpPost("change-password")]
+    [HttpPost("ChangePassword")]
     [Authorize]
     public IActionResult ChangePassword(ChangePasswordRequest model)
     {

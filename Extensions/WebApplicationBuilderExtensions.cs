@@ -31,8 +31,8 @@ public static class WebApplicationBuilderExtensions
             x.EnableTryItOutByDefault();
             x.RoutePrefix = string.Empty;
             x.SwaggerEndpoint("swagger/account/swagger.json", "Account");
-            x.SwaggerEndpoint("swagger/admin/swagger.json", "GrantApplication");
-            x.SwaggerEndpoint("swagger/applicant/swagger.json", "GrantApplicationType");
+            x.SwaggerEndpoint("swagger/admin/swagger.json", "Admin");
+            x.SwaggerEndpoint("swagger/applicant/swagger.json", "Applicant");
             x.OAuthClientId(configuration["System:Swagger:ClientId"]);
             x.OAuthUsePkce();
             x.OAuthScopeSeparator(" ");
@@ -77,19 +77,19 @@ public static class WebApplicationBuilderExtensions
                 Contact = contact
             });
 
-            //c.SwaggerDoc("admin", new OpenApiInfo()
-            //{
-            //    Title = "Grant Management Platform - GrantApplication",
-            //    Version = "v1",
-            //    Contact = contact
-            //});
+            c.SwaggerDoc("admin", new OpenApiInfo()
+            {
+                Title = "Grant Management Platform - Admin",
+                Version = "v1",
+                Contact = contact
+            });
 
-            //c.SwaggerDoc("applicant", new OpenApiInfo()
-            //{
-            //    Title = "Grant Management Platform - GrantApplicationType",
-            //    Version = "v1",
-            //    Contact = contact
-            //});
+            c.SwaggerDoc("applicant", new OpenApiInfo()
+            {
+                Title = "Grant Management Platform - Applicant",
+                Version = "v1",
+                Contact = contact
+            });
 
             //Uri tokenUrl = new($"{configuration["System:AzureAD:Instance"]}{configuration["System:AzureAD:TenantId"]}/oauth2/v2.0/token");
             //Uri authorizationUrl = new($"{configuration["System:AzureAD:Instance"]}{configuration["System:AzureAD:TenantId"]}/oauth2/v2.0/authorize");

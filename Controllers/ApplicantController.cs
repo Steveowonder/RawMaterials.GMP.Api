@@ -1,12 +1,14 @@
 namespace RawMaterials.GMP.Api.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Applicant")]
 [Route("[controller]")]
-public class GrantApplicationTypeController(
+[ApiExplorerSettings(GroupName = "applicant")]
+public class ApplicantController(
     IGrantApplicationTypeService _grantApplicationTypeService,
-    ILogger<GrantApplicationTypeController> _logger) : ControllerBase
+    ILogger<ApplicantController> _logger) : ControllerBase
 {
-    [HttpGet("get-all")]
+    [HttpGet("GetAll")]
     public Task<IActionResult> GetAll()
     {
         throw new NotImplementedException();

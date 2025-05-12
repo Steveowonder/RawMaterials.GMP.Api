@@ -1,18 +1,20 @@
 namespace RawMaterials.GMP.Api.Controllers;
 
 [ApiController]
+[Authorize(Roles = "Admin")]
 [Route("[controller]")]
-public class GrantApplicationController(
+[ApiExplorerSettings(GroupName = "admin")]
+public class AdminController(
     IGrantApplicationService _grantApplicationService,
-    ILogger<GrantApplicationController> _logger) : ControllerBase
+    ILogger<AdminController> _logger) : ControllerBase
 {
-    [HttpGet("get-all")]
+    [HttpGet("GetAll")]
     public Task<IActionResult> GetAll()
     {
         throw new NotImplementedException();
     }
 
-    [HttpPut("approve")]
+    [HttpPut("Approve")]
     public async Task<IActionResult> Approve(Guid applicationId)
     {
         try
