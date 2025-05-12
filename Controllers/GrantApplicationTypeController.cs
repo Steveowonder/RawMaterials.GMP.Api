@@ -1,13 +1,13 @@
 namespace RawMaterials.GMP.Api.Controllers;
 
 [ApiController]
-[Authorize(Roles = "Applicant")]
 [Route("[controller]")]
-[ApiExplorerSettings(GroupName = "applicant")]
-public class ApplicantController(
+[ApiExplorerSettings(GroupName = "grantapplicationtype")]
+public class GrantApplicationTypeController(
     IGrantApplicationTypeService _grantApplicationTypeService,
-    ILogger<ApplicantController> _logger) : ControllerBase
+    ILogger<GrantApplicationTypeController> _logger) : ControllerBase
 {
+    [Authorize(Roles = "Admin")]
     [HttpGet("GetAll")]
     public Task<IActionResult> GetAll()
     {

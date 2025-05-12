@@ -1,12 +1,11 @@
 namespace RawMaterials.GMP.Api.Controllers;
 
 [ApiController]
-[Authorize(Roles = "Admin")]
 [Route("[controller]")]
-[ApiExplorerSettings(GroupName = "admin")]
-public class AdminController(
+[ApiExplorerSettings(GroupName = "grantapplication")]
+public class GrantApplicationController(
     IGrantApplicationService _grantApplicationService,
-    ILogger<AdminController> _logger) : ControllerBase
+    ILogger<GrantApplicationController> _logger) : ControllerBase
 {
     [HttpGet("GetAll")]
     public Task<IActionResult> GetAll()
@@ -14,6 +13,7 @@ public class AdminController(
         throw new NotImplementedException();
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpPut("Approve")]
     public async Task<IActionResult> Approve(Guid applicationId)
     {

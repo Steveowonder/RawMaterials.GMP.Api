@@ -31,8 +31,8 @@ public static class WebApplicationBuilderExtensions
             x.EnableTryItOutByDefault();
             x.RoutePrefix = string.Empty;
             x.SwaggerEndpoint("swagger/account/swagger.json", "Account");
-            x.SwaggerEndpoint("swagger/admin/swagger.json", "Admin");
-            x.SwaggerEndpoint("swagger/applicant/swagger.json", "Applicant");
+            x.SwaggerEndpoint("swagger/grantapplication/swagger.json", "GrantApplication");
+            x.SwaggerEndpoint("swagger/grantapplicationtype/swagger.json", "GrantApplicationType");
             x.OAuthClientId(configuration["System:Swagger:ClientId"]);
             x.OAuthUsePkce();
             x.OAuthScopeSeparator(" ");
@@ -55,13 +55,6 @@ public static class WebApplicationBuilderExtensions
     private static void AddSwagger(this IServiceCollection services, IConfiguration configuration)
         => services.AddSwaggerGen(c =>
         {
-            //c.OperationFilter<DefaultStartAndEndValues>();
-            //c.OperationFilter<PlanumTypesOperationFilter>();
-            //c.OperationFilter<CountryOperationFilter>();
-            //c.OperationFilter<AreaOperationFilter>();
-            //c.OperationFilter<ExchangeOperationFilter>();
-            //c.OperationFilter<RemoveVersionParameters>();
-
             c.UseInlineDefinitionsForEnums();
             c.DescribeAllParametersInCamelCase();
             var contact = new OpenApiContact
@@ -77,60 +70,19 @@ public static class WebApplicationBuilderExtensions
                 Contact = contact
             });
 
-            c.SwaggerDoc("admin", new OpenApiInfo()
+            c.SwaggerDoc("grantapplication", new OpenApiInfo()
             {
-                Title = "Grant Management Platform - Admin",
+                Title = "Grant Management Platform - GrantApplication",
                 Version = "v1",
                 Contact = contact
             });
 
-            c.SwaggerDoc("applicant", new OpenApiInfo()
+            c.SwaggerDoc("grantapplicationtype", new OpenApiInfo()
             {
-                Title = "Grant Management Platform - Applicant",
+                Title = "Grant Management Platform - GrantApplicationType",
                 Version = "v1",
                 Contact = contact
             });
-
-            //Uri tokenUrl = new($"{configuration["System:AzureAD:Instance"]}{configuration["System:AzureAD:TenantId"]}/oauth2/v2.0/token");
-            //Uri authorizationUrl = new($"{configuration["System:AzureAD:Instance"]}{configuration["System:AzureAD:TenantId"]}/oauth2/v2.0/authorize");
-
-            //string accessAsUserScope = $"api://{configuration["System:AzureAD:ClientId"]}/access.as.user";
-            //string definitionName = "oauth2";
-
-            //c.AddSecurityDefinition(definitionName, new OpenApiSecurityScheme
-            //{
-            //    Name = "OAuth 2",
-            //    Type = SecuritySchemeType.OAuth2,
-            //    Flows = new OpenApiOAuthFlows
-            //    {
-            //        AuthorizationCode = new OpenApiOAuthFlow
-            //        {
-            //            AuthorizationUrl = authorizationUrl,
-            //            TokenUrl = tokenUrl,
-            //            Scopes = new Dictionary<string, string>
-            //            {
-            //                { accessAsUserScope, "Access as User" }
-            //            },
-            //        }
-            //    },
-            //});
-
-            //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            //{
-            //    {
-            //        new OpenApiSecurityScheme
-            //        {
-            //            Reference = new OpenApiReference
-            //            {
-            //                Type = ReferenceType.SecurityScheme,
-            //                Id = definitionName
-            //            }
-            //    },
-            //        new[] {
-            //           accessAsUserScope
-            //        }
-            //    }
-            //});
 
             c.EnableAnnotations();
         });
