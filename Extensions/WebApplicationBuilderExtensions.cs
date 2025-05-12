@@ -21,7 +21,6 @@ public static class WebApplicationBuilderExtensions
         IConfiguration configuration = app.Configuration;
 
         app.UseCultures();
-        app.UseGlobalExceptionHandler();
 
         app.UseSwagger();
         app.UseSwaggerUI(x =>
@@ -85,21 +84,6 @@ public static class WebApplicationBuilderExtensions
             });
 
             c.EnableAnnotations();
-        });
-
-    private static void UseGlobalExceptionHandler(this WebApplication app)
-        => app.UseExceptionHandler(err =>
-        {
-            err.Run(async context =>
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                context.Response.ContentType = "text/csv";
-                context.Response.Headers.Append("Sender", Assembly.GetExecutingAssembly().GetName().Name);
-                var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
-
-                if (contextFeature != null)
-                    await context.Response.WriteAsync(contextFeature.Error.Message);
-            });
         });
 
     private static void UseCultures(this WebApplication app)

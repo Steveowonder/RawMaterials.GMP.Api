@@ -7,10 +7,19 @@ public class GrantApplicationTypeController(
     IGrantApplicationTypeService _grantApplicationTypeService,
     ILogger<GrantApplicationTypeController> _logger) : ControllerBase
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpGet("GetAll")]
-    public Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var grantApplicationTypes = await _grantApplicationTypeService.GetAll();
+            return Ok(grantApplicationTypes);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Error when loading Grant Application Types. {ex.Message}");
+            return StatusCode(500, "An error occurred while processing your request.");
+        }
     }
 }
